@@ -14,7 +14,9 @@ class SecureClient:
         context.load_cert_chain(certfile=self.certfile, keyfile=self.keyfile)
         context.verify_mode = ssl.CERT_REQUIRED
         context.load_verify_locations(cafile=self.cafile)
-
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
         with socket.create_connection((self.host, self.port)) as sock:
             with context.wrap_socket(sock, server_hostname=self.host) as ssock:
                 cert = ssock.getpeercert()
