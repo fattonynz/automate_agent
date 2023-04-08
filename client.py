@@ -7,9 +7,14 @@ class Client:
 
     def connect(self):
         with socket.create_connection((self.host, self.port)) as sock:
+            print(f"Connected to {self.host}:{self.port}")
             sock.sendall(b"Hello, server!")
+            print("Sent message to server")
             data = sock.recv(1024)
             print(f"Received from server: {data.decode()}")
-
+            
 client = Client(host="3.86.198.38", port=443)
-client.connect()
+try:
+    client.connect()
+except Exception as e:
+    print(f"Error: {e}")
