@@ -6,7 +6,7 @@ class Client:
         self.port = port
 
     def connect(self):
-        with socket.create_connection((self.host, self.port)) as sock:
+        with socket.create_connection((self.host, self.port,9999)) as sock:
             print(f"Connected to {self.host}:{self.port}")
             sock.sendall(b"{workflow_id:1}")
             print("Sent message to server")
